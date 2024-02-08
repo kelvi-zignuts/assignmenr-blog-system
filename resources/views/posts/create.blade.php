@@ -18,7 +18,7 @@
                             <label for="content">Content</label>
                             <textarea class="form-control" id="content" name="content" rows="5">{{ old('content') }}</textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="background-color: blue;">Create Post</button>
+                        <button type="submit" class="btn btn-primary" style="background-color: #007bff;">Create Post</button>
                     </form>
                 </div>
             </div>

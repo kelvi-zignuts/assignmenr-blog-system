@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
@@ -11,7 +12,7 @@ class PostController extends Controller
   
     public function index()
     {
-        $posts= Post::paginate(3);
+        $posts= Post::paginate(6);
         return view('posts.index', compact('posts'));
     }
  
@@ -37,7 +38,8 @@ class PostController extends Controller
     public function show($id)
     {
         $post = Post::findOrFail($id);
-        return view('posts.show', compact('post'));
+        $comments = Comment::where('post_id', $post->id)->get();
+        return view('posts.show', compact('post','comments'));
     }
 
     public function edit($id)
