@@ -32,6 +32,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('posts', PostController::class);
-Route::resource('comments',CommentController::class)->only(['store','update','destory']);
+Route::resource('comments',CommentController::class)->only(['store','destory']);
 Route::delete('/comments/{id}', [CommentController::class,'destory'])->name('comments.destory');
 require __DIR__.'/auth.php';
