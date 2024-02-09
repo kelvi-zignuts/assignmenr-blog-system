@@ -23,7 +23,6 @@ class CommentController extends Controller
         $comment->content = $request->content;
         $comment->user_id=auth()->id();
         $comment->post_id = $request->post_id;  
-        
         $comment->save();
         return redirect()->back()->with('success','comment added successfully');
     }

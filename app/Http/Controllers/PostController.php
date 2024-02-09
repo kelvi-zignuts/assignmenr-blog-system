@@ -28,24 +28,29 @@ class PostController extends Controller
             'content' => 'required',
         ]);
 
+        $post = new Post();
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->user_id = auth()->id();
+        $post->save();
+        
+
         // $postData = $request->except(['_token']);
 
-        Post::create($request->only('title', 'content'));
+        // Post::create($request->only('title', 'content'));
 
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')->with('succes', 'Post created successfully.');
     }
 
     public function show($id)
     {
         $post = Post::with('comments')->findOrFail($id);
-        dd($post);
-        // $comments = Comment::where('post_id', $post->id)->get();
-        $comment = Comment::find(1)->comments()
-                    ->where('post_id', $post->id)
-                    ->first();
+        $comments = Comment::where('post_id', $post->id)->get();
+        // $comment = Comment::find(1)->comments()
+        //             ->where('post_id', $post->id)
+        //             ->first();
 
-        dd($post);
-        return $this->hasMany(Comment::class, 'foreign_key');
+        // return $this->hasMany(Comment::class, 'foreign_key');
         return view('posts.show', compact('post','comments'));
     }
 
