@@ -9,6 +9,7 @@
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ $post->content }}</p>
                 </div>
+                @if(Auth::user()->id === $post->user_id)
                 <div class="card-footer">
                     <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary">Edit</a>
                     <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display: inline-block;">
@@ -16,7 +17,8 @@
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this post?')" style="background-color: red;">Delete</button>
                     </form>
-                </div>   
+                </div> 
+                @endif  
             </div>
         </div>
     </div>
@@ -27,7 +29,7 @@
         <br>
         <div class="row">
             <div class="col-md-10">
-                @foreach($comments as $comment)
+                @foreach($post->comments as $comment)
                 <div class="card mb-2">
                     <div class="card-body">
                         <p>{{$comment->content}}</p>

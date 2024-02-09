@@ -12,7 +12,7 @@ class Comment extends Model
 
     public function Post()
     {
-        return $this->belongsTo(Post::class,'post_id');
+        return $this->belongsTo(Post::class);
     }
     public function user()
     {

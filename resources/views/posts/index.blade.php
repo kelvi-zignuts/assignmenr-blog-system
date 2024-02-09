@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 
 <div class="container">
@@ -10,7 +9,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ $post->title }}</h5>
                     <p class="card-text">{{ \Illuminate\Support\Str::limit($post->content, 20, '...') }}</p>
-                    <p>Posted by: {{$post->user->name}}</p>
+                    <p class="author-name" >Posted by: {{$post->user->name}}</p>
+                    
                     <a href="{{ route('posts.show', $post->id) }}" class="btn btn-primary">View</a>
                 </div>
             </div>

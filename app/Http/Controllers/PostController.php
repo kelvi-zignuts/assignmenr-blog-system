@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Comment;
@@ -12,7 +12,7 @@ class PostController extends Controller
   
     public function index()
     {
-        $posts= Post::paginate(6);
+        $posts= Post::orderBy('created_at','desc')->paginate(6);
         return view('posts.index', compact('posts'));
     }
  
@@ -44,19 +44,24 @@ class PostController extends Controller
 
     public function show($id)
     {
-        $post = Post::with('comments')->findOrFail($id);
-        $comments = Comment::where('post_id', $post->id)->get();
-        // $comment = Comment::find(1)->comments()
+        // $post = Post::with('comments')->findOrFail($id);
+        $post = Post::find($id);
+        $comment = $post->comments;
+        // $comment = Comment::where('post_id', $post->id)->first();
+        // $comment = Comment::find($id)->comments()
         //             ->where('post_id', $post->id)
         //             ->first();
 
         // return $this->hasMany(Comment::class, 'foreign_key');
-        return view('posts.show', compact('post','comments'));
+        return view('posts.show', compact('post','comment'));
     }
 
-    public function edit($id)
+    public function edit(Post $post)
     {
-        $post = Post::findOrFail($id);
+        if(Auth::user()->id!==$post->user_id){
+            abort(403,'unauthorized account');
+        }
+        // $post = Post::findOrFail($id);
         return view('posts.edit', compact('post'));
     }
 
@@ -77,9 +82,12 @@ class PostController extends Controller
     }
 
    
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        $post = Post::findOrFail($id);
+        if(Auth::user()->id!==$post->user_id){
+            abort(403,'unauthorized account');
+        }
+        // $post = Post::findOrFail($id);
         $post->delete();
         return redirect()->route('posts.index');
     }

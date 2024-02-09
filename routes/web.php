@@ -29,9 +29,25 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('posts', PostController::class);
+    Route::resource('comments',CommentController::class)->only(['store','destory']);
+    Route::delete('/comments/{id}', [CommentController::class,'destory'])->name('comments.destory');
 });
 
-Route::resource('posts', PostController::class);
-Route::resource('comments',CommentController::class)->only(['store','destory']);
-Route::delete('/comments/{id}', [CommentController::class,'destory'])->name('comments.destory');
+
+
+// Route::prefix('posts')->group(function(){
+//     Route::get('/',[PostController::class,'index'])->name('posts.index');
+//     Route::get('/create',[PostController::class,'create'])->name('posts.create');
+//     Route::get('/store',[PostController::class,'store'])->name('posts.store');
+//     Route::get('/edit',[PostController::class,'edit'])->name('posts.edit');
+//     Route::get('/update',[PostController::class,'update'])->name('posts.update');
+//     Route::get('/show',[PostController::class,'show'])->name('posts.show');
+//     Route::get('/destory',[PostController::class,'destory'])->name('posts.destory');
+// });
+    
+
+// Route::resource('posts', PostController::class);
+// Route::resource('comments',CommentController::class)->only(['store','destory']);
+// Route::delete('/comments/{id}', [CommentController::class,'destory'])->name('comments.destory');
 require __DIR__.'/auth.php';

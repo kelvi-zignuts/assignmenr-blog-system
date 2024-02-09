@@ -8,6 +8,7 @@
                 <div class="card-header">Edit Post</div>
 
                 <div class="card-body">
+                    @if(Auth::user()->id === $post->user_id)
                     <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -21,6 +22,9 @@
                         </div>
                         <button type="submit" class="btn btn-primary" style="background-color: blue;">Update Post</button>
                     </form>
+                    @else
+                    <p>You are not authoeized to edit this post.</p>
+                    @endif
                 </div>
             </div>
         </div>
