@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/comments/{id}', [CommentController::class,'destory'])->name('comments.destory');
 });
 
-
+Route::get('posts/{id}','App\Http\Controllers\PostController@show');
 
 // Route::prefix('posts')->group(function(){
 //     Route::get('/',[PostController::class,'index'])->name('posts.index');

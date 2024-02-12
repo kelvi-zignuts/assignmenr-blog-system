@@ -46,6 +46,10 @@ class PostController extends Controller
     {
         // $post = Post::with('comments')->findOrFail($id);
         $post = Post::find($id);
+      
+        if(!$post){
+            abort(404);
+        }
         $comment = $post->comments;
         // $comment = Comment::where('post_id', $post->id)->first();
         // $comment = Comment::find($id)->comments()
@@ -53,7 +57,7 @@ class PostController extends Controller
         //             ->first();
 
         // return $this->hasMany(Comment::class, 'foreign_key');
-        return view('posts.show', compact('post','comment'));
+        return view('posts.show', ['post'=>$post], compact('post','comment'));
     }
 
     public function edit(Post $post)

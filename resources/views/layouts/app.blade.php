@@ -33,15 +33,7 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
-            
-            @error('exception')
-            @if($exception instanceof\Symfony\Component\HttpKernel\Exception\NotFoundHttpException)
-            <div class="alert alert-danger">
-                Sorry, Page not found!!!
-            </div>
-            @endif
-            @enderror
-            
+
             <!-- Page Content -->
     <div class="container">
         @yield('content')

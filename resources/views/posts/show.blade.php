@@ -33,7 +33,7 @@
                 <div class="card mb-2">
                     <div class="card-body">
                         <p>{{$comment->content}}</p>
-                        <small>Posted by : {{$comment->user->name}}</small>
+                        <small class="author-name">Posted by : {{$comment->user->name}}</small>
                         <div class="mt-2">
                             <form action="{{route('comments.destory',$comment->id)}}" method="POST" style="display: inline;">
                             @csrf 
